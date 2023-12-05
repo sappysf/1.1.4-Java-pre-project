@@ -15,8 +15,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         String sql = "create table if not exists users(id integer not null primary key, name varchar(255),lastName varchar(255),age integer)";
-        try (Statement preparedStatement = Util.getConnection().createStatement()) {
-            preparedStatement.executeUpdate(sql);
+        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql)) {
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -24,8 +24,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void dropUsersTable() {
         String sql = "drop table if exists users";
-        try(Statement statement = Util.getConnection().createStatement()) {
-            statement.executeUpdate(sql);
+        try(PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql)) {
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
