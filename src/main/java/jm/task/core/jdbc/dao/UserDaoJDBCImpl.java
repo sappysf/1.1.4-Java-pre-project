@@ -73,7 +73,7 @@ public class UserDaoJDBCImpl implements UserDao {
         String sql = "select * from users";
         try(PreparedStatement preparedStatement = Util.getConnection().prepareStatement(sql); ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()){
-                int id = (int) resultSet.getLong("id");
+                long id = resultSet.getLong("id");
                 removeUserById(id);
                 System.out.println("User c id " + id + " and name " + resultSet.getString("name") + " " + resultSet.getString("lastName") + " was delete");
             }
