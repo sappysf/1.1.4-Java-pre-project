@@ -1,5 +1,9 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -31,4 +35,23 @@ public class Util {
         }
         return connection;
     }
+// 1.1.5 Java-pre-project
+    private static SessionFactory sessionFactory;
+
+    public static SessionFactory getSessionFactory() {
+        Logger logger = Logger.getLogger(Util.class.getName());
+        if (sessionFactory == null) {
+            try {
+                Configuration configuration = new Configuration().addAnnotatedClass(User.class);
+                sessionFactory = configuration.buildSessionFactory();
+                logger.info("SessionFactory connection correct!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.info("SessionFactory failed!");
+            }
+        }
+        return sessionFactory;
+    }
+
+
 }
